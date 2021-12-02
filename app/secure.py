@@ -1,0 +1,17 @@
+
+DEBUG = True
+
+# cookie 时效
+REMEMBER_COOKIE_DURATION = 1
+
+# 分布式数据库
+DATABASE_UERNAME = "root"
+DATABASE_PASSWORD = "123456"
+DATABASE_HOST = "localhost"
+DATABASE_PORT = 3306
+PROJECT_NAME = "fisher"
+SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://{}:{}@{}:{}/{}'.format(DATABASE_UERNAME, DATABASE_PASSWORD, DATABASE_HOST,
+                                                                  DATABASE_PORT, PROJECT_NAME)
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+SECRET_KEY = '\089X'
