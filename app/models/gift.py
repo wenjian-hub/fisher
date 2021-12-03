@@ -2,11 +2,15 @@ from datetime import datetime
 
 from flask import current_app
 
-from .base import Base
-from sqlalchemy import Column, Integer, Boolean, String, ForeignKey, desc
+from .base import Base, db
+from sqlalchemy import Column, Integer, Boolean, String, ForeignKey, desc, func
 from sqlalchemy.orm import relationship
 
+from .wish import Wish
 from ..spider.yushu_book import YuShuBook
+from collections import namedtuple
+
+EachGiftWishCount = namedtuple("EachGiftWishCount", ["count", "isbn"])
 
 
 class Gift(Base):
@@ -21,6 +25,25 @@ class Gift(Base):
 
     def __init__(self):
         self.create_time = int(datetime.now().timestamp())
+
+    @classmethod
+    def get_user_gifts(cls, uid):
+        # 数据库模型查询
+        gifts = Gift.query.filter_by(uid=uid, launched=False).\
+            order_by(desc(Gift.create_time)).all()
+        return gifts
+
+    @classmethod
+    def get_wish_count(cls, isbn_list):
+        # 通过isbn_list 获取到心愿书籍，统计wish数量
+        # db.session.query
+        # db.session 查询，查询的是一组模型
+        # 返回的是数量
+        count_list = db.session.query(func.count(Wish.id), Wish.isbn).\
+            filter(Wish.launched == False, Wish.isbn.in_(isbn_list), Wish.status == 1).\
+            group_by(Wish.isbn).all()
+        count_list = [{"count": w[0], "isbn": w[1]} for w in count_list]
+        return count_list
 
     @property
     def create_datetime(self):

@@ -13,7 +13,7 @@ class Book(Base):
     binding = Column(String(20))
     publisher = Column(String(50))
     price = Column(String(20))
-    pages = Column(Integer)
+    pages = Column(String(20))
     pubdate = Column(String(20))
     isbn = Column(String(15), nullable=False, unique=True)
     summary = Column(String(1000))
@@ -28,7 +28,6 @@ class Book(Base):
         return datetime.fromtimestamp(self.create_time) if self.create_time else None
 
     # 写入书籍数据
-    def can_book_date(self):
-        isbn = Book.query.filter_by(current_user.isbn).first()
-        print(isbn)
-        return True if isbn else False
+    def save_book_data(self, isbn):
+        isbn = Book.query.filter_by(isbn=isbn).first()
+        return False if isbn else True

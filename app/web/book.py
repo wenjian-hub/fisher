@@ -39,7 +39,6 @@ def search():
 
         books.fill(yushu_book, query)
 
-
         """
         解析data中带object的对象
         data = {"key1":"value1", "key2":"value2", "key3": object}
@@ -61,7 +60,7 @@ def book_detail(isbn):
     yushu_book.search_by_isbn(isbn)
     book = BookViewMode(yushu_book.first)
 
-    if Book.can_book_date:
+    if Book().save_book_data(isbn):
         with db.auto_commit():
             books = Book()
             books.title = book.title

@@ -1,6 +1,4 @@
 
-DEBUG = True
-
 # cookie 时效
 REMEMBER_COOKIE_DURATION = 1
 

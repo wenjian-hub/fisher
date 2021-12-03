@@ -12,5 +12,6 @@ b = {
     "4": 4
 }
 
-print(a.items() & b.items())
-print(1234)
+
+for i in a:
+    print(i, type(i))

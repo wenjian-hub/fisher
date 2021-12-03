@@ -20,7 +20,7 @@ class BookViewMode:
         return " | ".join(intro)
 
     def replace_string(self, words):
-        return words.replace("\\n", "\r")
+        return words.replace("\\n", "\r") if words else ""
 
 
 class BookCollection:
@@ -33,6 +33,8 @@ class BookCollection:
         self.total = yushu_book.total
         self.keyword = keyword
         self.books = [BookViewMode(book) for book in yushu_book.books]
+        
+
         
 
 
