@@ -8,7 +8,7 @@ from app.view_models.book import BookViewMode
 MyGift = namedtuple("MyGift", ["id", "book", "wishes_count"])
 
 
-class MyGifts:
+class MyWishes:
     def __init__(self, gifts_of_mine: Gift, wish_count_list: dict):
         self.gifts = []
         self.__gifts_of_mine = gifts_of_mine

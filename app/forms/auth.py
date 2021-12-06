@@ -28,3 +28,6 @@ class LoginForm(Form):
         if not userInfo:
             raise ValidationError("请检查账号和密码是否正确")
 
+
+class EmailForm(Form):
+    email = StringField(validators=[DataRequired(), Length(8, 64), Email(message="电子邮件格式错误，请重新输送")])

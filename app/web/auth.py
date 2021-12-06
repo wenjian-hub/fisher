@@ -1,9 +1,9 @@
-from app.forms.auth import RegisterForm, LoginForm
+from app.forms.auth import RegisterForm, LoginForm, EmailForm
 from app.models.base import db
 from app.models.user import User
 from app.web import web
 from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 
 @web.route("/register", methods=["GET", "POST"])
@@ -48,9 +48,23 @@ def login():
 
 @web.route("/reset/password", methods=["GET", "POST"])
 def forget_password_request():
-    pass
+    form = EmailForm(request.form)
+    if request.method == "POST" and form.validate():
+        account_eamil = form.email.data
+        user = User.query.filter_by(email=account_eamil).first_or_404()
+        # first_or_404() , 如果user没有查询到数据，就不会执行后续的代码
+        from app.libs.email import send_mail
+        send_mail()
+    return render_template("auth/forget_password_request.html", form=form)
 
 
 @web.route("/reset/password/<token>", methods=["GET", "POST"])
 def forget_password(token):
     pass
+
+
+@web.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("web.index"))
+

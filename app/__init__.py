@@ -3,9 +3,11 @@ from app.models.book import db
 
 # 导入插件
 from flask_login import LoginManager
+from flask_mail import Mail
 
 # 初始化插件
 login_manager = LoginManager()
+mail = Mail()
 
 
 def create_app():
@@ -20,6 +22,8 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = "web.login"
     login_manager.login_message = "请先登录或者注册账号"
+    
+    mail.init_app(app)
 
     # 初始化数据库
     db.init_app(app)

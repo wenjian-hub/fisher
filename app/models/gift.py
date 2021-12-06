@@ -1,13 +1,10 @@
 from datetime import datetime
 
 from flask import current_app
-
-from .base import Base, db
+from app.models.base import Base, db
 from sqlalchemy import Column, Integer, Boolean, String, ForeignKey, desc, func
 from sqlalchemy.orm import relationship
-
-from .wish import Wish
-from ..spider.yushu_book import YuShuBook
+from app.spider.yushu_book import YuShuBook
 from collections import namedtuple
 
 EachGiftWishCount = namedtuple("EachGiftWishCount", ["count", "isbn"])
@@ -35,6 +32,7 @@ class Gift(Base):
 
     @classmethod
     def get_wish_count(cls, isbn_list):
+        from app.models.wish import Wish
         # 通过isbn_list 获取到心愿书籍，统计wish数量
         # db.session.query
         # db.session 查询，查询的是一组模型
