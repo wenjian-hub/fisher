@@ -24,11 +24,11 @@ MAIL_SERVER = "smtp.qq.com"
 MAIL_PORT = 465
 MAIL_USERNAME = "709889894@qq.com"
 MAIL_PASSWORD = "rcnglfdhqtmibchi"
-MAIL_USE_TLS = True
-MAIL_USE_SSL = False
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
 MAIL_ASCII_ATTACHMENTS = False
 MAIL_SUBJECT_PREFIX = "[鱼书]"
-MAIL_SENDER = "鱼书<wenjian@yushu.im>"
+MAIL_SENDER = "wenjian_flask"
 
 
 

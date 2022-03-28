@@ -22,14 +22,26 @@
                                   class="book-middle-title">{{ wish.book.title }}</span>
                         <div style="margin-top:6px;"
                              class="flex-vertical description-font">
-                            <span id="author">{{ wish.book.author }}</span>
-                            <span id="publisher">{{ wish.book.publisher }}</span>
-                            <span id="price">{{ wish.book.price }}</span>
-                            <span id="isbn">{{ wish.book.isbn }}</span>
+                            <div>
+                                <span>作者:</span>
+                                <span id="author">{{ wish.book.author }}</span>
+                            </div>
+                            <div>
+                                <span>出版社:</span>
+                                <span id="publisher">{{ wish.book.publisher }}</span>
+                            </div>
+                            <div>
+                                <span>售价:</span>
+                                <span id="price">{{ wish.book.price }}</span>
+                            </div>
+                            <div>
+                                <span>isbn:</span>
+                                <span id="isbn">{{ wish.book.isbn }}</span>
+                            </div>
                         </div>
-                        <a class="link-normal"
+                        <a class="link-normal", color="yellow"
                            href="{{ url_for('web.redraw_from_wish', isbn=wish.book.isbn) }}">
-                            撤销
+                            撤销该心愿书籍
                         </a>
                     </div>
                     <div class="col-md-3 flex-vertical">

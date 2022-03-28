@@ -20,8 +20,12 @@ class Gift(Base):
     launched = Column(Boolean, default=False, comment="礼物是否送出")
     create_time = Column("create_time", Integer, nullable=False)
 
-    def __init__(self):
-        self.create_time = int(datetime.now().timestamp())
+    # def __init__(self):
+    #     self.create_time = int(datetime.now().timestamp())
+    #
+    # @property
+    # def create_datetime(self):
+    #     return datetime.fromtimestamp(self.create_time) if self.create_time else None
 
     @classmethod
     def get_user_gifts(cls, uid):
@@ -42,10 +46,6 @@ class Gift(Base):
             group_by(Wish.isbn).all()
         count_list = [{"count": w[0], "isbn": w[1]} for w in count_list]
         return count_list
-
-    @property
-    def create_datetime(self):
-        return datetime.fromtimestamp(self.create_time) if self.create_time else None
 
     # Gift和Book关联
     # book = relationship("Book")
@@ -76,3 +76,7 @@ class Gift(Base):
             order_by(desc(Gift.create_time)).\
             limit(current_app.config["RECENT_BOOK_COUNT"]).all()
         return recent_gifts
+
+    # 判断书籍是否存在  当前uid和传进来的uid对比，存在返回True, 不存在返回False
+    def is_yourself_gift(self, uid):
+        return True if self.uid == uid else False

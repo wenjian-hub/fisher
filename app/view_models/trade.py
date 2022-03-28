@@ -10,21 +10,21 @@ class TradeInfo:
         self.trades = []
         self.__parse(goods)
 
-    def __parse(self, goods: Gift) -> dict:
+    def __parse(self, goods):
         self.total = len(goods)
         self.trades = [self.__map_to_trade(single) for single in goods]
 
-    def __map_to_trade(self, single: Gift) -> dict:
+    def __map_to_trade(self, single):
         return dict(
             user_name=single.user.nickname,
             time=single.create_datetime.strftime("%Y-%m-%d") if single.create_datetime else "未知",
-            ig=single.id
+            id=single.id
         )
 
 
 class MyTrade:
 
-    MyGift = namedtuple("MyGift", ["id", "book", "wishes_count"])
+    # MyGift = namedtuple("MyGift", ["id", "book", "wishes_count"])
 
     def __init__(self, trades_of_mine, trade_count_list):
         self.trades = []

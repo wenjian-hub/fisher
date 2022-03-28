@@ -10,10 +10,10 @@ class MySource:
     def query(self, a):
         try:
             yield
+            print("aaaa")
             return 5 / a
         except Exception as e:
             raise e
-
 
 
 mysource = MySource()

@@ -20,12 +20,12 @@ class Book(Base):
     image = Column(String(50))
     create_time = Column("create_time", Integer, nullable=False)
 
-    def __init__(self):
-        self.create_time = int(datetime.now().timestamp())
-
-    @property
-    def create_datetime(self):
-        return datetime.fromtimestamp(self.create_time) if self.create_time else None
+    # def __init__(self):
+    #     self.create_time = int(datetime.now().timestamp())
+    #
+    # @property
+    # def create_datetime(self):
+    #     return datetime.fromtimestamp(self.create_time) if self.create_time else None
 
     # 写入书籍数据
     def save_book_data(self, isbn):

@@ -1,6 +1,6 @@
 
 from wtforms import Form, PasswordField, StringField
-from wtforms.validators import Length, DataRequired, Email, ValidationError
+from wtforms.validators import Length, DataRequired, Email, ValidationError, EqualTo
 
 from app.models.user import User
 
@@ -31,3 +31,16 @@ class LoginForm(Form):
 
 class EmailForm(Form):
     email = StringField(validators=[DataRequired(), Length(8, 64), Email(message="电子邮件格式错误，请重新输送")])
+
+
+class RestPasswordForm(Form):
+    password1 = PasswordField(validators=[DataRequired(), Length(6, 32, message="密码长度在6~32之间"),
+                              EqualTo("password2", message="两次密码不相同")])
+    password2 = PasswordField(validators=[DataRequired(), Length(6, 32)])
+
+
+class ChangePasswordForm(Form):
+    old_password = PasswordField(validators=[DataRequired(), Length(6, 32, message="输入密码不正确")])
+    new_password1 = PasswordField(validators=[DataRequired(), Length(6, 32, message="密码长度在6~32之间"),
+                                  EqualTo("new_password2", message="两次密码不相同")])
+    new_password2 = PasswordField(validators=[DataRequired(), Length(6, 32, message="密码长度在6~32之间")])

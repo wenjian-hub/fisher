@@ -3,7 +3,6 @@ import requests
 
 
 class HTTP:
-    # 经典类和新式类
     @staticmethod
     def get(url, return_json=True):
         r = requests.get(url, headers={'Connection':'close'})

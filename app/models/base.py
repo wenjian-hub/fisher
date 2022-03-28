@@ -40,8 +40,19 @@ class Base(db.Model):
     # 数据库基类模型
     __abstract__ = True
     status = Column(SmallInteger, default=1)
+    create_time = Column("create_time", Integer, nullable=False)
+
+    def __init__(self):
+        self.create_time = int(datetime.now().timestamp())
+
+    @property
+    def create_datetime(self):
+        return datetime.fromtimestamp(self.create_time) if self.create_time else None
 
     def set_attr(self, attr_dict):
         for key, value in attr_dict.items():
             if hasattr(self, key) and key != "id":
                 setattr(self, key, value)
+
+    def delete(self):
+        self.status = 0

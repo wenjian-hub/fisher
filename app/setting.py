@@ -1,6 +1,4 @@
 
-DEBUG = True
-
 FLASK_ENV = "development"
 
 PER_PAGE = 15

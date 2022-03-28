@@ -15,13 +15,6 @@ class Wish(Base):
     launched = Column(Boolean, default=False, comment="礼物是否送出")
     create_time = Column("create_time", Integer, nullable=False)
 
-    def __init__(self):
-        self.create_time = int(datetime.now().timestamp())
-
-    @property
-    def create_datetime(self):
-        return datetime.fromtimestamp(self.create_time) if self.create_time else None
-
     @classmethod
     def get_user_wishes(cls, uid):
         # 数据库模型查询

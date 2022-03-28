@@ -4,15 +4,15 @@ from app.forms.book import SearchForm
 from app.libs.helper import is_isbn_or_key
 from app.spider.yushu_book import YuShuBook
 from flask import request, jsonify, flash, render_template
-from . import web
+from app.web import web
 import json
 
-from ..models.base import db
-from ..models.book import Book
-from ..models.gift import Gift
-from ..models.wish import Wish
-from ..view_models.book import BookCollection, BookViewMode
-from ..view_models.trade import TradeInfo
+from app.models.base import db
+from app.models.book import Book
+from app.models.gift import Gift
+from app.models.wish import Wish
+from app.view_models.book import BookCollection, BookViewMode
+from app.view_models.trade import TradeInfo
 
 
 @web.route('/book/search')
@@ -52,7 +52,7 @@ def search():
 
 @web.route("/book/<isbn>/detail")
 def book_detail(isbn):
-    has_in_gits = False
+    has_in_gifts = False
     has_in_wishes = False
 
     # 获取书籍数据
@@ -78,7 +78,7 @@ def book_detail(isbn):
     # 判断用户是否登录
     if current_user.is_authenticated:
         if Gift.query.filter_by(uid=current_user.id, isbn=isbn, launched=False).first():
-            has_in_gits = True
+            has_in_gifts = True
 
         if Wish.query.filter_by(uid=current_user.id, isbn=isbn, launched=False).first():
             has_in_wishes = True
@@ -89,6 +89,6 @@ def book_detail(isbn):
     trade_gifts_model = TradeInfo(trade_gifts)
     trade_wishes_model = TradeInfo(trade_wishes)
     return render_template("book_detail.html", book=book, wishes=trade_wishes_model, gifts=trade_gifts_model,
-                           has_in_gits=has_in_gits, has_in_wishes=has_in_wishes)
+                           has_in_gifts=has_in_gifts, has_in_wishes=has_in_wishes)
 
 
